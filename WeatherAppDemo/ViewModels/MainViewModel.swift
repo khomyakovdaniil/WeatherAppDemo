@@ -46,7 +46,6 @@ class MainViewModel: ObservableObject {
         self.locationsRepository = locationsRepository // TODO: Create
         self.locationManager = locationManager
         selectedPlace = ""
-        defaultLocation = Constants.Strings.currentLocation
         $searchText
             .dropFirst()
             .receive(on: DispatchQueue.main)
@@ -65,6 +64,8 @@ class MainViewModel: ObservableObject {
                 }
             }
             .store(in: &cancellables)
+        selectedPlace = defaultLocation ?? Constants.Strings.currentLocation
+        fetchWeather()
     }
     
     func fetchWeather() {
